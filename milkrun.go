@@ -1,21 +1,14 @@
 package main
 
 import (
-	"bytes"
 	"encoding/base64"
-	"encoding/json"
-	"fmt"
-	"io/ioutil"
 	"log"
-	"net/http"
-	"net/http/cookiejar"
-	"net/url"
 	"os"
 
 	"github.com/aws/aws-lambda-go/lambda"
+	"github.com/aws/aws-sdk-go/aws/client"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/kms"
-	"golang.org/x/net/publicsuffix"
 )
 
 const (
@@ -54,83 +47,30 @@ func HandleRequest() (string, error) {
 	email := os.Getenv("MILKRUN_EMAIL")
 	password := decrypted
 
-	resp, err := cookiejar.New(&cookiejar.Options{PublicSuffixList: publicsuffix.List})
+	c := client.New(Email(email), Password(password), BaseURL(apiUrl))
+	err := c.login()
 	if err != nil {
 		log.Fatal(err)
 		return "", err
 	}
 
-	client := &http.Client{
-		Jar: resp,
-	}
-
-	//login
-	log.Print("Logging In")
-	_, err = client.PostForm(authUrl,
-		url.Values{"email": {email}, "password": {password}})
+	err = c.order()
 	if err != nil {
 		log.Fatal(err)
 		return "", err
 	}
 
-	log.Print("Logged In")
-
-	//order milk
-	orderJson := []byte(`{"product_id":1837,"add_quantity":6}`)
-	_, err = client.Post(cartContentsUrl, "application/json;charset=utf-8", bytes.NewBuffer(orderJson))
+	err = c.checkout()
 	if err != nil {
 		log.Fatal(err)
 		return "", err
 	}
 
-	log.Print("Ordered Milk")
-	//get checkout
-
-	log.Print("Checking out")
-	checkoutResponse, err := client.Post(checkoutsUrl, "application/json;charset=utf-8", nil)
+	err = c.logout()
 	if err != nil {
 		log.Fatal(err)
 		return "", err
 	}
 
-	checkoutJson, err := ioutil.ReadAll(checkoutResponse.Body)
-	if err != nil {
-		log.Fatal(err)
-		return "", err
-	}
-
-	type Checkout struct {
-		ID int `json:"id"`
-	}
-
-	var checkout Checkout
-	json.Unmarshal([]byte(checkoutJson), &checkout)
-
-	//finalize checkout
-
-	log.Print("Finalizing Checkout")
-	finalizePayload := fmt.Sprintf(`{"id": %d}`, checkout.ID)
-	finalizeUrl := fmt.Sprintf(apiUrl+"/checkouts/%d/order", checkout.ID)
-	finalizeCheckoutResponse, err := client.Post(finalizeUrl, "application/json;charset=utf-8", bytes.NewBuffer([]byte(finalizePayload)))
-	if err != nil {
-		log.Fatal(err)
-		return "", err
-	}
-
-	finalizeJson, err := ioutil.ReadAll(finalizeCheckoutResponse.Body)
-	if err != nil {
-		log.Fatal(err)
-		return "", err
-	}
-	log.Printf("Finalized! JSON %s", finalizeJson)
-	//logout
-
-	req, _ := http.NewRequest("DELETE", authUrl, nil)
-	_, err = http.DefaultClient.Do(req)
-	if err != nil {
-		log.Fatal(err)
-		return "", err
-	}
-	log.Print("Logged out")
 	return "success", nil
 }
