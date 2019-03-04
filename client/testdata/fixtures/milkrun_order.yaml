@@ -1,0 +1,152 @@
+---
+version: 1
+interactions:
+- request:
+    body: email=test@test.com&password=test
+    form:
+      email:
+      - test@test.com
+      password:
+      - test
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded
+    url: https://api.localmilkrun.com/v1/auth
+    method: POST
+  response:
+    body: '{"id":1191,"email":"maeverevels@gmail.com","name":"Maeve Revels","phone":"","created_at":"2017-10-15T07:00:00.000+00:00","roles":[],"sudoed":false}'
+    headers:
+      Cf-Ray:
+      - 4b1fe230fbae3b68-YVR
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 04 Mar 2019 00:55:15 GMT
+      Expect-Ct:
+      - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+      Server:
+      - cloudflare
+      Set-Cookie:
+      - __cfduid=dfe91a3e46074b2b90f74359682a7446e1551660915; expires=Tue, 03-Mar-20
+        00:55:15 GMT; path=/; domain=.localmilkrun.com; HttpOnly
+      - milkrun.session=eJwlzNEKwjAMQNF%2FyfOQJalpup8pbZLBECasiIjs3x34cs%2Fb%2FcKIMbbnXjeH%0ABSTJzL0r50wqWVDYUimsZtnv3EyUwxT7zKuhNXQXW7k5UqFEBBPUa1Mv3%2B3w%0A2G%2BvEcc%2Fj%2FjAgljw%2FAG3CCHS%0A--4344ac0230e2dd66d3eb81a82d7e9cf8d6e9f384;
+        domain=api.localmilkrun.com; path=/; expires=Wed, 03 Apr 2019 00:55:15 -0000;
+        HttpOnly
+      Vary:
+      - Origin
+      Via:
+      - 1.1 vegur
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"product_id":1010,"add_quantity":1}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json;charset=utf-8
+      Cookie:
+      - __cfduid=dfe91a3e46074b2b90f74359682a7446e1551660915; milkrun.session=eJwlzNEKwjAMQNF%2FyfOQJalpup8pbZLBECasiIjs3x34cs%2Fb%2FcKIMbbnXjeH%0ABSTJzL0r50wqWVDYUimsZtnv3EyUwxT7zKuhNXQXW7k5UqFEBBPUa1Mv3%2B3w%0A2G%2BvEcc%2Fj%2FjAgljw%2FAG3CCHS%0A--4344ac0230e2dd66d3eb81a82d7e9cf8d6e9f384
+    url: https://api.localmilkrun.com/v1/shopping_cart/contents
+    method: POST
+  response:
+    body: '{"id":40,"contents":[{"product":{"object":"product","id":1837,"name":"Skim Milk","description":"\u003cp\u003e1 dozen farm fresh eggs from
+      pasture raised hens near Estacada.\u003c/p\u003e\n","offer_status":"available","primary_image_url":"https://milkrun-public-1.s3.amazonaws.com/production/product/709c2d00634b4411-hello-i-m-nik-522061-unsplash.jpg","public":true,"supplier":{"id":1260,"name":"Chicken
+      Scratch Farm"},"categories":["eggs_dairy","featured","depot_refridgerated"],"active_state":{"id":3490,"created_at":"2019-01-11T01:02:42.606+00:00","updated_at":null,"price_per_unit":{"cents":700,"currency":"USD"},"unit_name":"doz","active_during":{"start":"2019-01-11T01:02:41.602+00:00","end":"2029-01-11T01:02:42.602+00:00"}},"quantity_available":999,"available_for_subscription":true},"quantity":1}],"coupon":null,"total":{"cents":700,"currency":"USD"},"subtotal":{"cents":700,"currency":"USD"},"discount":{"cents":0,"currency":"USD"},"contents_count":6,"next_batch":{"id":349,"closes_at":"2019-03-05T20:00:00.000+00:00","delivering_on":"2019-03-07"}}'
+    headers:
+      Cf-Ray:
+      - 4b1fe2344c6f3b68-YVR
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 04 Mar 2019 00:55:16 GMT
+      Expect-Ct:
+      - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+      Server:
+      - cloudflare
+      Set-Cookie:
+      - milkrun.session=eJwlzNEKwjAMQNF%2FyfOQJalpup8pbZLBECasiIjs3x34cs%2Fb%2FcKIMbbnXjeH%0ABSTJzL0r50wqWVDYUimsZtnv3EyUwxT7zKuhNXQXW7k5UqFEBBPUa1Mv3%2B3w%0A2G%2BvEcc%2Fj%2FjAgljw%2FAG3CCHS%0A--4344ac0230e2dd66d3eb81a82d7e9cf8d6e9f384;
+        domain=api.localmilkrun.com; path=/; expires=Wed, 03 Apr 2019 00:55:16 -0000;
+        HttpOnly
+      Vary:
+      - Origin
+      Via:
+      - 1.1 vegur
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      Content-Type:
+      - application/json;charset=utf-8
+      Cookie:
+      - __cfduid=dfe91a3e46074b2b90f74359682a7446e1551660915; milkrun.session=eJwlzNEKwjAMQNF%2FyfOQJalpup8pbZLBECasiIjs3x34cs%2Fb%2FcKIMbbnXjeH%0ABSTJzL0r50wqWVDYUimsZtnv3EyUwxT7zKuhNXQXW7k5UqFEBBPUa1Mv3%2B3w%0A2G%2BvEcc%2Fj%2FjAgljw%2FAG3CCHS%0A--4344ac0230e2dd66d3eb81a82d7e9cf8d6e9f384
+    url: https://api.localmilkrun.com/v1/checkouts
+    method: POST
+  response:
+    body: '{"id":1291,"card":{"id":1579,"deleted":false,"stripe_id":"card_1BY3REJGqibGpftnJNQZ3fhW","brand":"Visa","exp_month":7,"exp_year":2020,"last4":"1610","cardholder_name":"Maeve
+      Revels","address_postal_code":"97213","default":true},"delivery_address":{"id":2183,"name":"","instructions":"","security_code":"","default":true,"address1":"3015
+      NE 56th Ave","address2":"","city":"Portland","state_or_province":"OREGON","postal_code":"97213","country":"US","lat":45.5448219,"lng":-122.6058598,"suggested_bounds_nesw":[45.5461776802915,-122.604515369708,45.5434797197085,-122.607213330292]},"batch":{"id":349,"closes_at":"2019-03-05T20:00:00.000+00:00","delivering_on":"2019-03-07"}}'
+    headers:
+      Cf-Ray:
+      - 4b1fe236acbe3b68-YVR
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 04 Mar 2019 00:55:16 GMT
+      Expect-Ct:
+      - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+      Server:
+      - cloudflare
+      Set-Cookie:
+      - milkrun.session=eJwlzNEKwjAMQNF%2FyfOQJalpup8pbZLBECasiIjs3x34cs%2Fb%2FcKIMbbnXjeH%0ABSTJzL0r50wqWVDYUimsZtnv3EyUwxT7zKuhNXQXW7k5UqFEBBPUa1Mv3%2B3w%0A2G%2BvEcc%2Fj%2FjAgljw%2FAG3CCHS%0A--4344ac0230e2dd66d3eb81a82d7e9cf8d6e9f384;
+        domain=api.localmilkrun.com; path=/; expires=Wed, 03 Apr 2019 00:55:16 -0000;
+        HttpOnly
+      Vary:
+      - Origin
+      Via:
+      - 1.1 vegur
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id": 1291}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json;charset=utf-8
+      Cookie:
+      - __cfduid=dfe91a3e46074b2b90f74359682a7446e1551660915; milkrun.session=eJwlzNEKwjAMQNF%2FyfOQJalpup8pbZLBECasiIjs3x34cs%2Fb%2FcKIMbbnXjeH%0ABSTJzL0r50wqWVDYUimsZtnv3EyUwxT7zKuhNXQXW7k5UqFEBBPUa1Mv3%2B3w%0A2G%2BvEcc%2Fj%2FjAgljw%2FAG3CCHS%0A--4344ac0230e2dd66d3eb81a82d7e9cf8d6e9f384
+    url: https://api.localmilkrun.com/v1/checkouts/1291/order
+    method: POST
+  response:
+    body: '{"id":7867,"created_at":"2019-03-04T00:55:16.692+00:00","state":"created","delivered_at":null,"canceled_at":null,"cancelable":true,"delivering_on":"2019-03-07","total":{"cents":700,"currency":"USD"},"subtotal":{"cents":700,"currency":"USD"},"discount":{"cents":0,"currency":"USD"},"items":[{"quantity":1,"product_id":1010,"name":"Free
+      Range Chicken Eggs","description":"1 dozen farm fresh eggs from pasture raised
+      hens near Estacada.","primary_image_url":"https://milkrun-public-1.s3.amazonaws.com/production/product/709c2d00634b4411-hello-i-m-nik-522061-unsplash.jpg","supplier":{"id":1260,"name":"Chicken
+      Scratch Farm"},"price_per_unit":{"cents":700,"currency":"USD"},"unit_name":"doz"}],"card":{"id":1579,"deleted":false,"stripe_id":"card_1BY3REJGqibGpftnJNQZ3fhW","brand":"Visa","exp_month":7,"exp_year":2020,"last4":"1610","cardholder_name":"Maeve
+      Revels","address_postal_code":"97213","default":true},"charge":null,"coupon":null,"delivery_address":{"id":2183,"name":"","instructions":"","security_code":"","default":true,"address1":"3015
+      NE 56th Ave","address2":"","city":"Portland","state_or_province":"OREGON","postal_code":"97213","country":"US","lat":45.5448219,"lng":-122.6058598,"suggested_bounds_nesw":[45.5461776802915,-122.604515369708,45.5434797197085,-122.607213330292]}}'
+    headers:
+      Cf-Ray:
+      - 4b1fe2376cd53b68-YVR
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 04 Mar 2019 00:55:16 GMT
+      Expect-Ct:
+      - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+      Server:
+      - cloudflare
+      Set-Cookie:
+      - milkrun.session=eJwlzNEKwjAMQNF%2FyfOQJalpup8pbZLBECasiIjs3x34cs%2Fb%2FcKIMbbnXjeH%0ABSTJzL0r50wqWVDYUimsZtnv3EyUwxT7zKuhNXQXW7k5UqFEBBPUa1Mv3%2B3w%0A2G%2BvEcc%2Fj%2FjAgljw%2FAG3CCHS%0A--4344ac0230e2dd66d3eb81a82d7e9cf8d6e9f384;
+        domain=api.localmilkrun.com; path=/; expires=Wed, 03 Apr 2019 00:55:16 -0000;
+        HttpOnly
+      Vary:
+      - Origin
+      Via:
+      - 1.1 vegur
+    status: 200 OK
+    code: 200
+    duration: ""
