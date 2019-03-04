@@ -14,6 +14,42 @@ import (
 	"golang.org/x/net/publicsuffix"
 )
 
+const (
+	apiUrl          = "https://api.localmilkrun.com/v1"
+	authUrl         = apiUrl + "/auth"
+	cartUrl         = apiUrl + "/shopping_cart"
+	cartContentsUrl = cartUrl + "/contents"
+	checkoutsUrl    = apiUrl + "/checkouts"
+)
+
+func (c *Client) DoMilkrunOrder() (string, error) {
+	err := c.login()
+	if err != nil {
+		log.Fatal(err)
+		return "", err
+	}
+
+	err = c.order()
+	if err != nil {
+		log.Fatal(err)
+		return "", err
+	}
+
+	err = c.checkout()
+	if err != nil {
+		log.Fatal(err)
+		return "", err
+	}
+
+	err = c.logout()
+	if err != nil {
+		log.Fatal(err)
+		return "", err
+	}
+
+	return "success!", nil
+}
+
 // Option is a functional option for configuring the API client
 type Option func(*Client) error
 
@@ -39,6 +75,13 @@ func Email(email string) Option {
 	}
 }
 
+func Transport(transport http.RoundTripper) Option {
+	return func(c *Client) error {
+		c.httpClient.Transport = transport
+		return nil
+	}
+}
+
 // parseOptions parses the supplied options functions and returns a configured
 // *Client instance
 func (c *Client) parseOptions(opts ...Option) error {
@@ -56,8 +99,8 @@ func (c *Client) parseOptions(opts ...Option) error {
 }
 
 const apiURL = "https://api.localmilkrun.com/v1"
-const email = "maeverevels@gmail.com"
-const password = "password"
+const default_email = "default_email"
+const default_password = "deefault_password"
 
 // Client holds information necessary to make a request to your API
 type Client struct {
@@ -81,8 +124,8 @@ func New(opts ...Option) (*Client, error) {
 			Timeout: time.Second * 30,
 			Jar:     resp,
 		},
-		email:    email,
-		password: password,
+		email:    default_email,
+		password: default_password,
 	}
 
 	if err := client.parseOptions(opts...); err != nil {
@@ -94,40 +137,43 @@ func New(opts ...Option) (*Client, error) {
 
 func (c *Client) login() error {
 	log.Print("Logging In")
-	_, err = client.PostForm(authUrl,
-		url.Values{"email": {email}, "password": {password}})
+
+	_, err := c.httpClient.PostForm(authUrl,
+		url.Values{"email": {c.email}, "password": {c.password}})
 	if err != nil {
 		log.Fatal(err)
 		return err
 	}
 
 	log.Print("Logged In")
-
+	return nil
 }
 
 func (c *Client) order() error {
 	orderJson := []byte(`{"product_id":1837,"add_quantity":6}`)
-	_, err = client.Post(cartContentsUrl, "application/json;charset=utf-8", bytes.NewBuffer(orderJson))
+	_, err := c.httpClient.Post(cartContentsUrl, "application/json;charset=utf-8", bytes.NewBuffer(orderJson))
 	if err != nil {
 		log.Fatal(err)
 		return err
 	}
 
 	log.Print("Ordered Milk")
+	return nil
 }
 
 func (c *Client) checkout() error {
 	log.Print("Checking out")
-	checkoutResponse, err := client.Post(checkoutsUrl, "application/json;charset=utf-8", nil)
+
+	checkoutResponse, err := c.httpClient.Post(checkoutsUrl, "application/json;charset=utf-8", nil)
 	if err != nil {
 		log.Fatal(err)
-		return "", err
+		return err
 	}
 
 	checkoutJson, err := ioutil.ReadAll(checkoutResponse.Body)
 	if err != nil {
 		log.Fatal(err)
-		return "", err
+		return err
 	}
 
 	type Checkout struct {
@@ -140,28 +186,31 @@ func (c *Client) checkout() error {
 	//finalize checkout
 
 	log.Print("Finalizing Checkout")
+
 	finalizePayload := fmt.Sprintf(`{"id": %d}`, checkout.ID)
 	finalizeUrl := fmt.Sprintf(apiUrl+"/checkouts/%d/order", checkout.ID)
-	finalizeCheckoutResponse, err := client.Post(finalizeUrl, "application/json;charset=utf-8", bytes.NewBuffer([]byte(finalizePayload)))
+	finalizeCheckoutResponse, err := c.httpClient.Post(finalizeUrl, "application/json;charset=utf-8", bytes.NewBuffer([]byte(finalizePayload)))
 	if err != nil {
 		log.Fatal(err)
-		return "", err
+		return err
 	}
 
 	finalizeJson, err := ioutil.ReadAll(finalizeCheckoutResponse.Body)
 	if err != nil {
 		log.Fatal(err)
-		return "", err
+		return err
 	}
 	log.Printf("Finalized! JSON %s", finalizeJson)
+	return nil
 }
 
 func (c *Client) logout() error {
 	req, _ := http.NewRequest("DELETE", authUrl, nil)
-	_, err = http.DefaultClient.Do(req)
+	_, err := http.DefaultClient.Do(req)
 	if err != nil {
 		log.Fatal(err)
-		return "", err
+		return err
 	}
 	log.Print("Logged out")
+	return nil
 }

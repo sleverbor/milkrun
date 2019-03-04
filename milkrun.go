@@ -9,14 +9,7 @@ import (
 	"github.com/aws/aws-sdk-go/aws/client"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/kms"
-)
-
-const (
-	apiUrl          = "https://api.localmilkrun.com/v1"
-	authUrl         = apiUrl + "/auth"
-	cartUrl         = apiUrl + "/shopping_cart"
-	cartContentsUrl = cartUrl + "/contents"
-	checkoutsUrl    = apiUrl + "/checkouts"
+	"github.com/sleverbor/milkrun/client"
 )
 
 var encrypted string = os.Getenv("MILKRUN_PASSWORD")
@@ -47,29 +40,13 @@ func HandleRequest() (string, error) {
 	email := os.Getenv("MILKRUN_EMAIL")
 	password := decrypted
 
-	c := client.New(Email(email), Password(password), BaseURL(apiUrl))
-	err := c.login()
+	c, err := client.New(client.Email(email), client.Password(password))
 	if err != nil {
-		log.Fatal(err)
-		return "", err
+		t.Fatal(err)
 	}
 
-	err = c.order()
-	if err != nil {
-		log.Fatal(err)
-		return "", err
-	}
-
-	err = c.checkout()
-	if err != nil {
-		log.Fatal(err)
-		return "", err
-	}
-
-	err = c.logout()
-	if err != nil {
-		log.Fatal(err)
-		return "", err
+	if _, err = c.DoMilkrunOrder(); err != nil {
+		t.Fatal(err)
 	}
 
 	return "success", nil
