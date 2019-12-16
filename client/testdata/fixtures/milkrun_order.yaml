@@ -86,9 +86,9 @@ interactions:
     url: https://api.localmilkrun.com/v1/checkouts
     method: POST
   response:
-    body: '{"id":1291,"card":{"id":1579,"deleted":false,"stripe_id":"card_1BY3REJGqibGpftnJNQZ3fhW","brand":"Visa","exp_month":7,"exp_year":2020,"last4":"1610","cardholder_name":"Maeve
-      Revels","address_postal_code":"97213","default":true},"delivery_address":{"id":2183,"name":"","instructions":"","security_code":"","default":true,"address1":"3015
-      NE 56th Ave","address2":"","city":"Portland","state_or_province":"OREGON","postal_code":"97213","country":"US","lat":45.5448219,"lng":-122.6058598,"suggested_bounds_nesw":[45.5461776802915,-122.604515369708,45.5434797197085,-122.607213330292]},"batch":{"id":349,"closes_at":"2019-03-05T20:00:00.000+00:00","delivering_on":"2019-03-07"}}'
+    body: '{"id":1291,"card":{"id":15,"deleted":false,"stripe_id":"card","brand":"Visa","exp_month":6,"exp_year":2020,"last4":"1556","cardholder_name":"Mo
+      Pebbles","address_postal_code":"97213","default":true},"delivery_address":{"id":2183,"name":"","instructions":"","security_code":"","default":true,"address1":"3015
+      Blah Ave","address2":"","city":"Portland","state_or_province":"OREGON","postal_code":"97213","country":"US","lat":45.5448219,"lng":-122.6058598,"suggested_bounds_nesw":[45.5461776802915,-122.604515369708,45.5434797197085,-122.607213330292]},"batch":{"id":349,"closes_at":"2019-03-05T20:00:00.000+00:00","delivering_on":"2019-03-07"}}'
     headers:
       Cf-Ray:
       - 4b1fe236acbe3b68-YVR
@@ -125,9 +125,9 @@ interactions:
     body: '{"id":7867,"created_at":"2019-03-04T00:55:16.692+00:00","state":"created","delivered_at":null,"canceled_at":null,"cancelable":true,"delivering_on":"2019-03-07","total":{"cents":700,"currency":"USD"},"subtotal":{"cents":700,"currency":"USD"},"discount":{"cents":0,"currency":"USD"},"items":[{"quantity":1,"product_id":1010,"name":"Free
       Range Chicken Eggs","description":"1 dozen farm fresh eggs from pasture raised
       hens near Estacada.","primary_image_url":"https://milkrun-public-1.s3.amazonaws.com/production/product/709c2d00634b4411-hello-i-m-nik-522061-unsplash.jpg","supplier":{"id":1260,"name":"Chicken
-      Scratch Farm"},"price_per_unit":{"cents":700,"currency":"USD"},"unit_name":"doz"}],"card":{"id":1579,"deleted":false,"stripe_id":"card_1BY3REJGqibGpftnJNQZ3fhW","brand":"Visa","exp_month":7,"exp_year":2020,"last4":"1610","cardholder_name":"Maeve
-      Revels","address_postal_code":"97213","default":true},"charge":null,"coupon":null,"delivery_address":{"id":2183,"name":"","instructions":"","security_code":"","default":true,"address1":"3015
-      NE 56th Ave","address2":"","city":"Portland","state_or_province":"OREGON","postal_code":"97213","country":"US","lat":45.5448219,"lng":-122.6058598,"suggested_bounds_nesw":[45.5461776802915,-122.604515369708,45.5434797197085,-122.607213330292]}}'
+      Scratch Farm"},"price_per_unit":{"cents":700,"currency":"USD"},"unit_name":"doz"}],"card":{"id":1579,"deleted":false,"stripe_id":"card_","brand":"Visa","exp_month":6,"exp_year":2022,"last4":"1553","cardholder_name":"Mo
+      Pebbles","address_postal_code":"97213","default":true},"charge":null,"coupon":null,"delivery_address":{"id":2183,"name":"","instructions":"","security_code":"","default":true,"address1":"3015
+      Blah Ave","address2":"","city":"Portland","state_or_province":"OREGON","postal_code":"95334","country":"US","lat":45.5448219,"lng":-122.6058598,"suggested_bounds_nesw":[45.5461776802915,-122.604515369708,45.5434797197085,-122.607213330292]}}'
     headers:
       Cf-Ray:
       - 4b1fe2376cd53b68-YVR

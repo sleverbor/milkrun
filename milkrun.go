@@ -6,10 +6,9 @@ import (
 	"os"
 
 	"github.com/aws/aws-lambda-go/lambda"
-	"github.com/aws/aws-sdk-go/aws/client"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/kms"
-	"github.com/sleverbor/milkrun/client"
+	milkrun "github.com/sleverbor/milkrun/client"
 )
 
 var encrypted string = os.Getenv("MILKRUN_PASSWORD")
@@ -31,6 +30,7 @@ func init() {
 	// Plaintext is a byte array, so convert to string
 	decrypted = string(response.Plaintext[:])
 }
+
 func main() {
 	lambda.Start(HandleRequest)
 }
@@ -40,13 +40,13 @@ func HandleRequest() (string, error) {
 	email := os.Getenv("MILKRUN_EMAIL")
 	password := decrypted
 
-	c, err := client.New(client.Email(email), client.Password(password))
+	c, err := milkrun.New(milkrun.Email(email), milkrun.Password(password))
 	if err != nil {
-		t.Fatal(err)
+		panic(err)
 	}
 
 	if _, err = c.DoMilkrunOrder(); err != nil {
-		t.Fatal(err)
+		panic(err)
 	}
 
 	return "success", nil
