@@ -150,7 +150,7 @@ func (c *Client) login() error {
 }
 
 func (c *Client) order() error {
-	orderJson := []byte(`{"product_id":1837,"add_quantity":6}`)
+	orderJson := []byte(`{"product_id":1837,"add_quantity":7}`)
 	_, err := c.httpClient.Post(cartContentsUrl, "application/json;charset=utf-8", bytes.NewBuffer(orderJson))
 	if err != nil {
 		log.Fatal(err)
